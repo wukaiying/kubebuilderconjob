@@ -1,0 +1,11 @@
+appVersion: 1.0.0
+description: Kubebuilder Webhook
+home: https://git.io/eskort/node-problem-detector
+icon: https://git.io/uploads/-/system/project/avatar/138/boat_1_.png
+maintainers:
+  - email: xxxx
+    name: xxxx
+name: eskort-webhook
+sources:
+  - https://git.io/eskort/node-problem-detector
+version: 1.0.0

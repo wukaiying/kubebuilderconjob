@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}-deployment
+  labels:
+    tier: devops
+    app: {{ .Chart.Name }}
+    version: {{ .Chart.AppVersion }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      tier: devops
+      app: {{ .Chart.Name }}
+      version: {{ .Chart.AppVersion }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        tier: devops
+        app: {{ .Chart.Name }}
+        version: {{ .Chart.AppVersion }}
+        release: {{ .Release.Name }}
+    spec:
+#      nodeSelector:
+#        node: master
+      serviceAccount: {{ template "fullname" . }}-sa
+      containers:
+        - name: {{ template "fullname" . }}
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy}}
+          volumeMounts:
+            - name: webhook-certs
+              mountPath: /tmp/k8s-webhook-server/serving-certs
+              readOnly: true
+          resources:
+{{- with .Values.resources }}
+{{ toYaml . | indent 12 }}
+{{- end }}
+      volumes:
+        - name: webhook-certs
+          secret:
+            secretName: {{ template "fullname" . }}-certs

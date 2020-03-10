@@ -1,0 +1,11 @@
+appVersion: 1.0.0
+description: Kubebuilder Webhook
+home: https://git.pacloud.io/eskort/node-problem-detector
+icon: https://git.pacloud.io/uploads/-/system/project/avatar/138/boat_1_.png
+maintainers:
+  - email: wukaiying494@pingan.com.cn
+    name: kaiying wu
+name: eskort-webhook
+sources:
+  - https://git.pacloud.io/eskort/node-problem-detector
+version: 1.0.0

@@ -1,0 +1,17 @@
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: {{ template "fullname" . }}-crb
+  labels:
+    tier: devops
+    app: {{ .Chart.Name }}
+    version: {{ .Chart.AppVersion }}
+    release: {{ .Release.Name }}
+subjects:
+- kind: ServiceAccount
+  name: {{ template "fullname" . }}-sa
+  namespace: {{ .Release.Namespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ template "fullname" . }}-cr-build

@@ -1,0 +1,79 @@
+#apiVersion: admissionregistration.k8s.io/v1beta1
+#kind: ValidatingWebhookConfiguration
+#metadata:
+#  name: {{ template "fullname" . }}-cfg
+#  labels:
+#    tier: devops
+#    app: {{ .Chart.Name }}
+#    version: {{ .Chart.AppVersion }}
+#    release: {{ .Release.Name }}
+#webhooks:
+#  - name: {{ template "fullname" . }}-svc.{{ .Release.Namespace }}.svc
+#    clientConfig:
+#      service:
+#        name: {{ template "fullname" . }}-svc
+#        namespace: {{ .Release.Namespace }}
+#        path: "/validate"
+#      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN2RENDQWFRQ0NRREFhQ1dNVGxmYmZUQU5CZ2txaGtpRzl3MEJBUXNGQURBZ01SNHdIQVlEVlFRRERCVmwKYzJ0dmNuUXRkMlZpYUc5dmF5MXpkbU1nUTBFd0hoY05NakF3TWpBM01EVXdNVEE1V2hjTk16QXdNakEwTURVdwpNVEE1V2pBZ01SNHdIQVlEVlFRRERCVmxjMnR2Y25RdGQyVmlhRzl2YXkxemRtTWdRMEV3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUMzLytnYXJMY2l0ekZmUjYvS3IwbGRwQ3gvUUVURkJXd2wKSFd2NFBvbUFHZG9TYy9VN2FRSzRybkxROFEySGUxK2JPRGp3Z2lvdDBzS0E0NHFnbks0d1BZb1NCWjJobXRRWQpkT2lNSGM3Z052MWprUFByQlNacE1iQWxRcFlHWm9xT21GWmJlTlVQSGR6R29IajhNVVIvTGpjalJLWHRxRFI3Cjl0SDBUTEtXVWpuTzJ0VGZOSi9KV255bnE5K3BPN2RPZWNWM0dxL05vdUZMU1FxV01JYkZYZHdoaHEzZnhCazUKOWlHUDROb2tJR0ZSUGJRMlNaakRIb0hKRUtjTmsxTjZQZ2Z4dGZPOC9pY2xEcm82TnhFT0tBVnNCRGtMR3Q3VQpIVERJU1d3Q0pyZ1o0Q2Y5M0Jza2s5c2VYM0FuWUpXUndtZU13TUM4RlArSnRjemQ3WUpKQWdNQkFBRXdEUVlKCktvWklodmNOQVFFTEJRQURnZ0VCQUprN3AvaXA2ZGROWm5FSXArQjVZbHFTL21qcXYvTy82VG5YTjlINGdKVDEKamtoeTllTmRQTis4LzJkTjNEVFhqaXF3OVVnZnhtdWxSOFAvbmpjTFo2WGhKNjJSTTdQM1c3Ri95TXNnS2dQcApXaEU3VUtjZlJYUDRvTjV0VGdOSG5rTXVKbUljN3RPdkpRaksrSkZGTm11QkhXc3FuTXpwTzVRNmlNalZORE5zCkFGb09oOGJHZFdwQlE2UEZyNkV5K2RzcDR3VVA0eXd6QTBUM0h2V2NlWE9GengzRnVxU2hNdnh5TlpoOVFDMzUKUUtncmxvaFF3SldBcmpONEh5MDZYcE93bGw2Z0RGZmNIK3ZScStFcnVuWXZMU0ZGR0NJWStVZTJjY0ZVVmZjSgo2VDRpb3NvYUx0cFJZNTh4VmpvSER0dmI2OHkzMU4zWFpDR000aEJPZ2R3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+#    rules:
+#      - operations: [ "CREATE","UPDATE" ]
+#        apiGroups: ["eskort.pingan.com", ""]
+#        apiVersions: ["v1"]
+#        resources: ["deployments","services","systemstatmonitorconfigs","nodeproblemsolverconfigs", "scriptedmonitorconfigs"]
+#    namespaceSelector:
+#      matchLabels:
+#        admission-webhook-eskort: enabled
+
+
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: MutatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: mutating-webhook-configuration
+webhooks:
+  - clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN2RENDQWFRQ0NRREFhQ1dNVGxmYmZUQU5CZ2txaGtpRzl3MEJBUXNGQURBZ01SNHdIQVlEVlFRRERCVmwKYzJ0dmNuUXRkMlZpYUc5dmF5MXpkbU1nUTBFd0hoY05NakF3TWpBM01EVXdNVEE1V2hjTk16QXdNakEwTURVdwpNVEE1V2pBZ01SNHdIQVlEVlFRRERCVmxjMnR2Y25RdGQyVmlhRzl2YXkxemRtTWdRMEV3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUMzLytnYXJMY2l0ekZmUjYvS3IwbGRwQ3gvUUVURkJXd2wKSFd2NFBvbUFHZG9TYy9VN2FRSzRybkxROFEySGUxK2JPRGp3Z2lvdDBzS0E0NHFnbks0d1BZb1NCWjJobXRRWQpkT2lNSGM3Z052MWprUFByQlNacE1iQWxRcFlHWm9xT21GWmJlTlVQSGR6R29IajhNVVIvTGpjalJLWHRxRFI3Cjl0SDBUTEtXVWpuTzJ0VGZOSi9KV255bnE5K3BPN2RPZWNWM0dxL05vdUZMU1FxV01JYkZYZHdoaHEzZnhCazUKOWlHUDROb2tJR0ZSUGJRMlNaakRIb0hKRUtjTmsxTjZQZ2Z4dGZPOC9pY2xEcm82TnhFT0tBVnNCRGtMR3Q3VQpIVERJU1d3Q0pyZ1o0Q2Y5M0Jza2s5c2VYM0FuWUpXUndtZU13TUM4RlArSnRjemQ3WUpKQWdNQkFBRXdEUVlKCktvWklodmNOQVFFTEJRQURnZ0VCQUprN3AvaXA2ZGROWm5FSXArQjVZbHFTL21qcXYvTy82VG5YTjlINGdKVDEKamtoeTllTmRQTis4LzJkTjNEVFhqaXF3OVVnZnhtdWxSOFAvbmpjTFo2WGhKNjJSTTdQM1c3Ri95TXNnS2dQcApXaEU3VUtjZlJYUDRvTjV0VGdOSG5rTXVKbUljN3RPdkpRaksrSkZGTm11QkhXc3FuTXpwTzVRNmlNalZORE5zCkFGb09oOGJHZFdwQlE2UEZyNkV5K2RzcDR3VVA0eXd6QTBUM0h2V2NlWE9GengzRnVxU2hNdnh5TlpoOVFDMzUKUUtncmxvaFF3SldBcmpONEh5MDZYcE93bGw2Z0RGZmNIK3ZScStFcnVuWXZMU0ZGR0NJWStVZTJjY0ZVVmZjSgo2VDRpb3NvYUx0cFJZNTh4VmpvSER0dmI2OHkzMU4zWFpDR000aEJPZ2R3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+      service:
+        name: {{ template "fullname" . }}-svc
+        namespace: {{ .Release.Namespace }}
+        path: /mutate-batch-tutorial-kubebuilder-io-v1-cronjob
+    failurePolicy: Fail
+    name: {{ template "fullname" . }}-svc.{{ .Release.Namespace }}.svc
+    rules:
+      - apiGroups:
+          - batch.tutorial.kubebuilder.io
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - cronjobs
+
+---
+apiVersion: admissionregistration.k8s.io/v1beta1
+kind: ValidatingWebhookConfiguration
+metadata:
+  creationTimestamp: null
+  name: validating-webhook-configuration
+webhooks:
+  - clientConfig:
+      caBundle: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN2RENDQWFRQ0NRREFhQ1dNVGxmYmZUQU5CZ2txaGtpRzl3MEJBUXNGQURBZ01SNHdIQVlEVlFRRERCVmwKYzJ0dmNuUXRkMlZpYUc5dmF5MXpkbU1nUTBFd0hoY05NakF3TWpBM01EVXdNVEE1V2hjTk16QXdNakEwTURVdwpNVEE1V2pBZ01SNHdIQVlEVlFRRERCVmxjMnR2Y25RdGQyVmlhRzl2YXkxemRtTWdRMEV3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUMzLytnYXJMY2l0ekZmUjYvS3IwbGRwQ3gvUUVURkJXd2wKSFd2NFBvbUFHZG9TYy9VN2FRSzRybkxROFEySGUxK2JPRGp3Z2lvdDBzS0E0NHFnbks0d1BZb1NCWjJobXRRWQpkT2lNSGM3Z052MWprUFByQlNacE1iQWxRcFlHWm9xT21GWmJlTlVQSGR6R29IajhNVVIvTGpjalJLWHRxRFI3Cjl0SDBUTEtXVWpuTzJ0VGZOSi9KV255bnE5K3BPN2RPZWNWM0dxL05vdUZMU1FxV01JYkZYZHdoaHEzZnhCazUKOWlHUDROb2tJR0ZSUGJRMlNaakRIb0hKRUtjTmsxTjZQZ2Z4dGZPOC9pY2xEcm82TnhFT0tBVnNCRGtMR3Q3VQpIVERJU1d3Q0pyZ1o0Q2Y5M0Jza2s5c2VYM0FuWUpXUndtZU13TUM4RlArSnRjemQ3WUpKQWdNQkFBRXdEUVlKCktvWklodmNOQVFFTEJRQURnZ0VCQUprN3AvaXA2ZGROWm5FSXArQjVZbHFTL21qcXYvTy82VG5YTjlINGdKVDEKamtoeTllTmRQTis4LzJkTjNEVFhqaXF3OVVnZnhtdWxSOFAvbmpjTFo2WGhKNjJSTTdQM1c3Ri95TXNnS2dQcApXaEU3VUtjZlJYUDRvTjV0VGdOSG5rTXVKbUljN3RPdkpRaksrSkZGTm11QkhXc3FuTXpwTzVRNmlNalZORE5zCkFGb09oOGJHZFdwQlE2UEZyNkV5K2RzcDR3VVA0eXd6QTBUM0h2V2NlWE9GengzRnVxU2hNdnh5TlpoOVFDMzUKUUtncmxvaFF3SldBcmpONEh5MDZYcE93bGw2Z0RGZmNIK3ZScStFcnVuWXZMU0ZGR0NJWStVZTJjY0ZVVmZjSgo2VDRpb3NvYUx0cFJZNTh4VmpvSER0dmI2OHkzMU4zWFpDR000aEJPZ2R3PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+      service:
+        name: {{ template "fullname" . }}-svc
+        namespace: {{ .Release.Namespace }}
+        path: /validate-batch-tutorial-kubebuilder-io-v1-cronjob
+    failurePolicy: Fail
+    name: {{ template "fullname" . }}-svc.{{ .Release.Namespace }}.svc
+    rules:
+      - apiGroups:
+          - batch.tutorial.kubebuilder.io
+        apiVersions:
+          - v1
+        operations:
+          - CREATE
+          - UPDATE
+        resources:
+          - cronjobs

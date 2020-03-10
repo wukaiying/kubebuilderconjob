@@ -1,0 +1,17 @@
+fullnameOverride: eskort-webhook #DO NOT EDIT
+
+image:
+  hub:
+  repository: controller
+  tag: latest
+  pullPolicy: IfNotPresent
+
+webhook:
+  server:
+    port: 443
+    targetPort: 9443
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi

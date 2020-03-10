@@ -1,0 +1,16 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ template "fullname" . }}-cr-build
+  labels:
+    tier: devops
+    app: {{ .Chart.Name }}
+    version: {{ .Chart.AppVersion }}
+    release: {{ .Release.Name }}
+rules:
+- apiGroups:
+  - "*"
+  resources:
+  - "*"
+  verbs:
+  - "*"
