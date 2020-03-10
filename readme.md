@@ -127,8 +127,11 @@ webhooks:
           - cronjobs
 ```
 最后运行 build.sh开始使用helm chart安装controller和chart.
+
 k get pods -n eskort  #查看controller是否安装成功
+
 ka /Users/wukaiying/go/src/wukaiying/kubebuilderconjob/config/samples/batch_v1_cronjob.yaml
+
 k get cronjobs.batch.tutorial.kubebuilder.io
 
 ### 其他：
